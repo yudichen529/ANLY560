@@ -1,0 +1,51 @@
+---
+title: "financial_data"
+author: "Yudi Chen"
+date: "2023-02-03"
+output: html_document
+---
+```{r,message=FALSE}
+library(quantmod)
+```
+
+```{r}
+options("getSymbols.warning4.0"=FALSE)
+options("getSymbols.yahoo.warning"=FALSE)
+
+tickers = c("PFE","MRNA","JNJ","MAR", 
+            "HLT", "IHG", "H","DAL","AAL","UAL")
+for (i in tickers){
+  getSymbols(i,
+             from = "2013-01-01",
+             to = "2022-12-31")}
+
+x <- list(
+  title = "date"
+)
+y <- list(
+  title = "value"
+)
+
+PFE <- data.frame(PFE)
+MRNA <- data.frame(MRNA)
+JNJ <- data.frame(JNJ)
+MAR <- data.frame(MAR)
+HLT <- data.frame(HLT)
+IHG <- data.frame(IHG)
+H <- data.frame(H)
+DAL <- data.frame(DAL)
+AAL <- data.frame(AAL)
+UAL <- data.frame(UAL)
+
+write.csv(PFE, "~/Desktop/GU/ANLY 560/project_source-git/data/financial/PFE.csv",row.names = TRUE)
+write.csv(MRNA, "~/Desktop/GU/ANLY 560/project_source-git/data/financial/MRNA.csv",row.names = TRUE)
+write.csv(JNJ, "~/Desktop/GU/ANLY 560/project_source-git/data/financial/JNJ.csv",row.names = TRUE)
+write.csv(MAR, "~/Desktop/GU/ANLY 560/project_source-git/data/financial/MAR.csv",row.names = TRUE)
+write.csv(HLT, "~/Desktop/GU/ANLY 560/project_source-git/data/financial/HLT.csv",row.names = TRUE)
+write.csv(IHG, "~/Desktop/GU/ANLY 560/project_source-git/data/financial/IHG.csv",row.names = TRUE)
+write.csv(H, "~/Desktop/GU/ANLY 560/project_source-git/data/financial/H.csv",row.names = TRUE)
+write.csv(DAL, "~/Desktop/GU/ANLY 560/project_source-git/data/financial/DAL.csv",row.names = TRUE)
+write.csv(AAL, "~/Desktop/GU/ANLY 560/project_source-git/data/financial/AAL.csv",row.names = TRUE)
+write.csv(UAL, "~/Desktop/GU/ANLY 560/project_source-git/data/financial/UAL.csv",row.names = TRUE)
+```
+
