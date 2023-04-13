@@ -357,7 +357,10 @@ display: none;
 </div>
 
 
-<pre class="r"><code>library(quantmod)</code></pre>
+<pre class="r"><code>library(quantmod)
+library(plyr)</code></pre>
+<div id="get-individual-stocks" class="section level4">
+<h4>Get individual stocks</h4>
 <pre class="r"><code>options(&quot;getSymbols.warning4.0&quot;=FALSE)
 options(&quot;getSymbols.yahoo.warning&quot;=FALSE)
 
@@ -396,6 +399,35 @@ write.csv(H, &quot;~/Desktop/GU/ANLY 560/project_source-git/data/financial/H.csv
 write.csv(DAL, &quot;~/Desktop/GU/ANLY 560/project_source-git/data/financial/DAL.csv&quot;,row.names = TRUE)
 write.csv(AAL, &quot;~/Desktop/GU/ANLY 560/project_source-git/data/financial/AAL.csv&quot;,row.names = TRUE)
 write.csv(UAL, &quot;~/Desktop/GU/ANLY 560/project_source-git/data/financial/UAL.csv&quot;,row.names = TRUE)</code></pre>
+</div>
+<div id="get-sp-industry-index" class="section level4">
+<h4>Get S&amp;P industry index</h4>
+<pre class="r"><code>tickers = c(&quot;^SP500-203020&quot;)
+for (i in tickers){
+  getSymbols(i,
+             from = &quot;2013-01-01&quot;,
+             to = &quot;2022-12-31&quot;)}
+
+x &lt;- list(
+  title = &quot;date&quot;
+)
+y &lt;- list(
+  title = &quot;value&quot;
+)
+airlines &lt;- data.frame(`SP500-203020`)
+airlines$Date &lt;- rownames(airlines)
+
+write.csv(airlines, &quot;~/Desktop/GU/ANLY 560/project_source-git/data/analytical/analytical-financial-airlines.csv&quot;,row.names = FALSE)</code></pre>
+</div>
+<div id="get-hospitality-index-stocks" class="section level4">
+<h4>Get Hospitality Index Stocks</h4>
+<pre class="r"><code>list&lt;-list.files(&#39;~/Desktop/GU/ANLY 560/project_source-git/data/financial/&#39;, pattern=&quot;(Download)&quot;, full.names=TRUE)
+hospitality_index = lapply(list, read.csv)
+hospitality &lt;- ldply(hospitality_index)
+hospitality &lt;- hospitality[order(hospitality$Date),]
+
+write.csv(hospitality, &quot;~/Desktop/GU/ANLY 560/project_source-git/data/analytical/analytical-financial-hospitality.csv&quot;,row.names = FALSE)</code></pre>
+</div>
 
 
 

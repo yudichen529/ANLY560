@@ -6,8 +6,10 @@ output: html_document
 ---
 ```{r,message=FALSE}
 library(quantmod)
+library(plyr)
 ```
 
+#### Get individual stocks
 ```{r}
 options("getSymbols.warning4.0"=FALSE)
 options("getSymbols.yahoo.warning"=FALSE)
@@ -48,4 +50,35 @@ write.csv(DAL, "~/Desktop/GU/ANLY 560/project_source-git/data/financial/DAL.csv"
 write.csv(AAL, "~/Desktop/GU/ANLY 560/project_source-git/data/financial/AAL.csv",row.names = TRUE)
 write.csv(UAL, "~/Desktop/GU/ANLY 560/project_source-git/data/financial/UAL.csv",row.names = TRUE)
 ```
+
+#### Get S&P industry index
+```{r,warning=FALSE}
+tickers = c("^SP500-203020")
+for (i in tickers){
+  getSymbols(i,
+             from = "2013-01-01",
+             to = "2022-12-31")}
+
+x <- list(
+  title = "date"
+)
+y <- list(
+  title = "value"
+)
+airlines <- data.frame(`SP500-203020`)
+airlines$Date <- rownames(airlines)
+
+write.csv(airlines, "~/Desktop/GU/ANLY 560/project_source-git/data/analytical/analytical-financial-airlines.csv",row.names = FALSE)
+```
+
+#### Get Hospitality Index Stocks
+```{r}
+list<-list.files('~/Desktop/GU/ANLY 560/project_source-git/data/financial/', pattern="(Download)", full.names=TRUE)
+hospitality_index = lapply(list, read.csv)
+hospitality <- ldply(hospitality_index)
+hospitality <- hospitality[order(hospitality$Date),]
+
+write.csv(hospitality, "~/Desktop/GU/ANLY 560/project_source-git/data/analytical/analytical-financial-hospitality.csv",row.names = FALSE)
+```
+
 
